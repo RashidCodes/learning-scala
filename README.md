@@ -5,9 +5,9 @@ https://docs.scala-lang.org/tour/unified-types.html#
 
 ## The Cons Operator
 
-Scala supports use of the *cons*(short for construct) operator to build lists. Using `Nil` as a foundation and the right-associative cons operator `::` for binding elements, you can build a list without using the traditional `List(...)``` format.
+Scala supports use of the *cons*(short for construct) operator to build lists. Using `Nil` as a foundation and the right-associative cons operator `::` for binding elements, you can build a list without using the traditional `List(...)` format.
 
-<blockquote>In right-associative notation, triggered with operators end with a colon (:), operators are invoked on the entity to their immediate <b>right</b></blockquote>
+<blockquote>In right-associative notation, triggered with operators that end with a colon (:), operators are invoked on the entity to their immediate <b>right</b></blockquote>
 
 ```scala 
 val numbers = 1 :: 2 :: 3 :: Nil
