@@ -9,6 +9,11 @@ Scala supports use of the *cons*(short for construct) operator to build lists. U
 
 <blockquote>In right-associative notation, triggered with operators that end with a colon (:), operators are invoked on the entity to their immediate <b>right</b></blockquote>
 
+
+## Data Structures 
+Lists, Sets, Maps, Vectors, Buffers, etc.
+
+
 ```scala 
 val numbers = 1 :: 2 :: 3 :: Nil
 ```
@@ -45,6 +50,49 @@ Interestingly, the difference between the left/right directional varieties of ea
 ```scala 
 
 /* notice the return type of function is boolean whereas the list contains Ints 
-/* fold might not work here
+ * fold might not work here
+*/
+
 val included = List(46, 19, 92).foldLeft(false) { (a, i) => if (a) a else (i == 19) }
+```
+
+## Mutable types 
+
+- `collecion.mutable.Set`
+- `collecion.mutable.Buffer`
+- `collection.multable.Map`
+- `newBuilder`
+
+## Arrays 
+Fixed size, mutable, indexed collection. It's not officially a collection, because it isn't in the `scala.collections` package and doesn't extend from the root `Iterable` type (although it has all of the `Iterable` operations like `map` and `filter`). I don't recommend using Arrays in regular practice unless you need it for JVM code. There are many other fine sequences that can be used instead.
+
+```scala 
+val colors = Array("red", "green", "blue")
+
+// the Array is mutable 
+colors(0) = "purple"
+```
+
+## Vector 
+
+A list backed by `Array` instance for indexed access. As an indexed sequence, you can access items in a Vector directly by their index. By contrast, accessing the *nth* item of a `List` (a linked list) requires *n-1* steps from the head of its list.
+
+```scala 
+val scalaVector: Vector[Int] = Vector(1, 2, 3, 4);
+```
+
+## Streams
+
+The `Stream` type is a lazy collection, generated from one or more starting elements and a recursive function. **Elements are added to the collection only when they are accessed for the first time**, in contrast to other immutable collections that receive 100% of their contents at instantiation time. Streams are deprecated for `LazyList` in newer versions of Scala.
+
+```scala
+// assume that inc(head + 1) is the tail of the stream
+def inc(head: Int): Stream[Int] = head #:: inc(head + 1);
+
+// take some elements 
+inc(10).take(10).toList
+```
+
+Streams can be terminated with `Stream.Empty`
+
 
