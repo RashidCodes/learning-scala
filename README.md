@@ -119,15 +119,8 @@ Let's take a few examples
 ```scala 
 class User(n: String) {
    // class parameter
+   // this initialization is not necessary in Scala 3
    val name: String = n;
-   def greet: String = s"Hello from $name";
-   override def toString = s"User($name)";
-}
-```
-
-```scala 
-class User(val name: String) {
-   // you can use $name directly now 
    def greet: String = s"Hello from $name";
    override def toString = s"User($name)";
 }
@@ -222,7 +215,81 @@ notification.sendNotification()
 ```
 
 
+## Overloaded Methods 
+
+An overloaded method is a strategy for providing choices to callers. We learned this from Solidity/Java. Overloading may be a useful feature but many Scala developers prefer to use default value parameters versus overloading because overloading can be quite verbose.
+
+```scala 
+class Printer(msg: String) {
+   def print(s: String): Unit = println(s"$msg: $s");
+   def print(l: Seq[String]): Unit = print(l.mkString(", "))
+}
+
+new Printer("Today's Report").print("Foggy" :: "Rainy" :: "Hot" :: Nil);
+new Printer("Today's Report").print("You're going home!")
+```
 
 
+# Apply methods 
+Methods named "apply"", sometimes referred to as a default method or an injector method, can be invoked without the method name. The apply method is essentialy a shortcut, providing functionality that can be triggered using parentheses but without method name.
 
 
+```scala 
+
+class Multiplier(factor: Int) {
+   // default method 
+   def apply(input: Int) = input * factor;
+}
+
+val trippleMe = new Muliplier(3)
+val trippled = trippleMe.apply(10);
+val trippled2 = tripple(10);a
+```
+
+
+## Lazy Values
+Lazy values are only created the first time they are instantiated. They are popularly used to store information such as file-based properties, open database connections, and other immutable data that should only be initialized if it is really necessary. By initializing this data in a lazy val's expression, you can ensure that it will only operate if the lazy val is accessed at least once in the class instance's lifetime.
+
+```scala 
+class RandomPoint {
+   // this is executed every time an instance is created
+   val x = { println("creating x"); util.Random.nextInt }
+
+   // executed the first time it's invoked
+   lazy val y = { println("now y"); util.Random.nextInt }
+};
+
+val p = new RandomPoint
+println(s"Location is ${p.x}, ${p.y}")
+println(s"Location is ${p.x}, ${p.y}")
+
+```
+
+## Packaging 
+After creating your own classes, at some point you'll start organizing them to prevent namespace cluttering. Scala source files should be stored in directoies that match their package. For example, a "DataUtilities" class in the "com.netflix.utilities" package should be stored under */com/netflix/utilities/DataUtilities.scala*. The Scala compiler will store the generated *.class* files (the standard binary format for JVM-executable code) in a directory structure that matches the package.
+
+
+## Privacy Controls
+By default, Scala does not add privacy controls. Any class you write will be instantiable and its fields and methods accessible by any other code. If you do have some reason to add privacy controls, such as mutable state that should only be handled inside the class, you can add them on a field and method basis in your class.
+
+## Privacy Access Modifiers 
+Use privacy access modifiers for more fine-grained control over your class' members. Access modifiers can be specified in addition to `private` or `protected`.
+
+```scala 
+// limit a field or member to a single class
+private[this];
+
+// limit a field or member to the orielly package only
+private[orielly];
+```
+
+They can even be used with classes 
+```scala 
+private[oreilly] class Config {
+   var url = "http://127.0.0.1/8005"
+}
+```
+
+
+## Final and Sealed Classes 
+The `protected` and `private` access controls and their modifiers can limit access to a class or its members overall or based on location. However, they lack the ability to restrict creating subclasses!
