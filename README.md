@@ -96,3 +96,21 @@ inc(10).take(10).toList
 Streams can be terminated with `Stream.Empty`
 
 
+## Option Collections 
+The `Option` represents the presence or absence of a single value. This potentially missing value can thus be wrapped in an `Option` collection and have its potential absence clearly advertised.
+
+```scala
+/* checkout the return type 
+ * Option uses the following types in its implementation: None, Some
+def divide(amt: Double, divisor: Double): Option[Double] = {
+	if (diviser == 0 ) then None
+	else Option(amt/divisor)
+}
+``` 
+
+
+
+# Object Oriented Scala 
+The `java.lang.Object` class is the root of all instances in the JVM, including Scala, and is essentially equivalent to the Scala root type `Any`. `AnyRef` is the root of all instantiable types. Thus, invoking `toString` on our `User` class resulted in a call to its parent, `AnyRef`, then to its parent, `Any`, which is the same as `java.lang.Object` and where the `toString` method is located.
+
+Let's take a few examples
