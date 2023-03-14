@@ -150,3 +150,79 @@ val l = new Lotus("Silver", false);
 println(s"Requested a ${l.color} ${l.make}")
 
 ```
+
+## Abstract Classes
+
+Thanks to **polymorphism**, a value with the type of the abstract class can actually point to an instance of one of its nonabstract, and invoke methods that actually end up being invoked on the subclass.
+
+```scala
+abstract class Car {
+   val year: Int
+   val automatic: Boolean = true
+   def color: String 
+}
+
+// abstract classes are not instantiable 
+new Car() // error
+```
+
+Let's extend the abstract class to make it useful
+```scala 
+class RedMini(val year: Int) extends Car {
+   def color = "Red"
+}
+
+val m: Car = new RedMini(2005)
+```
+
+Check this out, scala is one interesting language. You can implement a parameter-free method with a variable/value 
+
+```scala 
+// remember color used to be a parameter-free method?
+class Mini(val year: Int, val color: String) extends Car
+
+val redMini: Car = new Mini(2005, "Red")a
+println(s"Got a ${redMini.color} Mini")
+```
+
+## Anonymous Classes
+A less formal way of implementing a parent class
+
+```scala 
+abstract class Listener { def trigger: Unit };
+
+val myListener = new Lister {
+   def trigger = { println(s"Trigger at ${new java.util.Date}") }
+}
+
+myListener.trigger
+```
+
+Let's take a look at another example 
+
+```scala 
+
+abstract class Listener = { def trigger: Unit };
+
+class Listening {
+   var listener: Listener = null;
+   def register(l: Listener) = { listener = l };
+   def sendNotification() { listener.trigger };
+};
+
+val notification = new Listening();
+
+// register a listener 
+notification.register(new Listener {
+   def trigger = println(s"Trigger at ${new java.util.Date}")
+})
+
+// send the notification 
+notification.sendNotification()
+```
+
+
+
+
+
+
