@@ -115,3 +115,38 @@ def divide(amt: Double, divisor: Double): Option[Double] = {
 The `java.lang.Object` class is the root of all instances in the JVM, including Scala, and is essentially equivalent to the Scala root type `Any`. `AnyRef` is the root of all instantiable types. Thus, invoking `toString` on our `User` class resulted in a call to its parent, `AnyRef`, then to its parent, `Any`, which is the same as `java.lang.Object` and where the `toString` method is located.
 
 Let's take a few examples
+
+```scala 
+class User(n: String) {
+   // class parameter
+   val name: String = n;
+   def greet: String = s"Hello from $name";
+   override def toString = s"User($name)";
+}
+```
+
+```scala 
+class User(val name: String) {
+   // you can use $name directly now 
+   def greet: String = s"Hello from $name";
+   override def toString = s"User($name)";
+}
+```
+
+## Inheritance 
+
+A class can extend another with the `extends` keyword. When extending classes that extend classes which take parameteres, you'll need to make sure the parameters are included in the classes' definition. The class identified following the `extends` keyword should have its own set of input parameters as necessary.
+
+```scala 
+
+class Car(val make: String, var reserved: Boolean) {
+   def reserve(r: Boolean): Unit = { reserved = r };
+};
+
+class Lotus(val color: String, reserved: Boolean) extends Car("Lotus", reserved);
+
+val l = new Lotus("Silver", false);
+
+println(s"Requested a ${l.color} ${l.make}")
+
+```
