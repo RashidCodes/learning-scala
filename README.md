@@ -102,6 +102,7 @@ The `Option` represents the presence or absence of a single value. This potentia
 ```scala
 /* checkout the return type 
  * Option uses the following types in its implementation: None, Some
+ */
 def divide(amt: Double, divisor: Double): Option[Double] = {
 	if (diviser == 0 ) then None
 	else Option(amt/divisor)
