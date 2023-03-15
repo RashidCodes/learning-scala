@@ -15,7 +15,7 @@ class ClassC extends ClassA with TraitB;
 
 
 /* A better example  */
-class TestSuite(suiteName: String) { def start() = {} };
+class TestSuite(var suiteName: String) { def start() = {} };
 
 /* The trait needs to invoke TestSuite.start() but cannot extend 
  * TestSuite because it would require hardcoding the input parameter.
@@ -33,6 +33,6 @@ class IdSpec extends TestSuite("ID Tests") with RandomSeeded {
     def testId() = { println(util.Random.nextInt != 1) };
     override def start() =  testId();
 
-    println("Starting...");
+    println(s"Starting ${suiteName}...");
     randomStart();
 }
