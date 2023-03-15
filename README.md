@@ -297,6 +297,64 @@ The `protected` and `private` access controls and their modifiers can limit acce
 ### Final Classes 
 A class marked as `Final` cannot be subclassed.
 
+```scala 
+final class FinalClass (var a: Int){
+  def showA: Unit = { println(s"($a)") }
+}
+
+// this fails
+class B extends FinalClass(12);
+```
+
 ## Sealed classes 
 If final classes are too restrictive for you, then consider a *sealed* class instead. Sealed classes restrict the subclass of a class to being located in the same file as the parent class. 
 The `Option` class is both *abstract* and *sealed*, and implemented with the proper assumption that it will only ever have two subclasses. Sealed classes are a useful way to implement an abstract parent class that "knows" and refers to specific subclasses.
+
+
+```scala 
+sealed class SealedClass (val name: String, val age: Int){
+  def showName: String = s"Hello I'm $name and I've lived on earth for ${age} years"
+}
+
+class SubclassedSealed(val height: String = "6'4") extends SealedClass("rashid", 26) {
+  def showHeight: String = s"I'm ${height} tall";
+}
+
+val sealedClass: SealedClass = SealedClass(name = "Rashid", age = 26);
+val subclassed: SubclassedSealed = SubclassedSealed();
+
+println(subclassed.showHeight);
+println(sealedClass.showName);
+```
+
+## Traits 
+
+A trait is a kind of class that **enables multiple inheritance**. Classes, case classes, objects, and traits can all extend no more than one class but can extend multiple traits at the same time. Unlike other types, however, **traits cannot be instantiated**.
+
+Traits, like objects, **cannot** take class parameters. Unlike objects, however, traits can take type parameters, which can help to make them highly reusable.
+
+```scala 
+trait HtmlUtils {
+   def removeMarkup(input: String) = {
+      input 
+         .replaceAll("""</?\w[^>]*>""", "")
+         .replaceAll("""<.*>", "")
+   }
+};
+
+class Page(val s: String) extends HtmlUtils {
+   def asPlainText = removeMarkup(s)
+};
+
+new Page("<html><body><h1>Introduction</h1></body></html>").asPlainText;
+```
+
+### Traits come after parent class
+If you're extending a class **and** one or more traits, you will need to extend the class before you can add the traits using the `with` keyword. A parent class if specified must always come before any parent traits. It's important to understand how **linearization** shapes the hierarchy of any class that extends traits.
+
+
+
+
+
+
+

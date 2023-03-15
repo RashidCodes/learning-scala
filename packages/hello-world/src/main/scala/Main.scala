@@ -1,6 +1,6 @@
 import users.User 
 import collection.mutable.Buffer 
-import com.oreilly
+import com.oreilly._
 
 @main def main: Unit = 
   // val isValid = new ValidUser().isValid
@@ -14,7 +14,7 @@ import com.oreilly
   // println(isValid);
 
   val valid = new com.oreilly.Authentication().validate
-  println(valid);
+  // println(valid);
 
   new com.oreilly.Test;
 
@@ -25,16 +25,25 @@ import com.oreilly
   val sealedClass: SealedClass = SealedClass(name = "Rashid", age = 26);
   val subclassed: SubclassedSealed = SubclassedSealed();
 
-  println(subclassed.showHeight);
-  println(sealedClass.showName);
+  // println(subclassed.showHeight);
+  // println(sealedClass.showName);
+
+  val tripler = Multiplier(3); // invokes the apply method
+  val result = tripler.product(13);
+
+  // println(result)
+  val conn = DBConnection();
+
+  // println(new D())
+
+  val red = new Paint(128 << 16).hex;
+  val blue = new Overlay(192).hex;
+
+  println(blue);
+
+  val spec: IdSpec = new IdSpec();
 
 
-
-
-class Legendary {
-  var name: String = "Rashid";
-  def presentName: String = "Presented!"
-}
 
 // protected: vars/vals are accessible to the main class as well 
 // as subclasses
