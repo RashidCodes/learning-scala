@@ -338,7 +338,7 @@ trait HtmlUtils {
    def removeMarkup(input: String) = {
       input 
          .replaceAll("""</?\w[^>]*>""", "")
-         .replaceAll("""<.*>", "")
+         .replaceAll("""<.*>""", "")
    }
 };
 
