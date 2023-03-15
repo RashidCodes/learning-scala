@@ -291,5 +291,12 @@ private[oreilly] class Config {
 ```
 
 
-## Final and Sealed Classes 
+## Final and Sealed Classes
 The `protected` and `private` access controls and their modifiers can limit access to a class or its members overall or based on location. However, they lack the ability to restrict creating subclasses!
+
+### Final Classes 
+A class marked as `Final` cannot be subclassed.
+
+## Sealed classes 
+If final classes are too restrictive for you, then consider a *sealed* class instead. Sealed classes restrict the subclass of a class to being located in the same file as the parent class. 
+The `Option` class is both *abstract* and *sealed*, and implemented with the proper assumption that it will only ever have two subclasses. Sealed classes are a useful way to implement an abstract parent class that "knows" and refers to specific subclasses.

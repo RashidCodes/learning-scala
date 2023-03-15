@@ -18,12 +18,16 @@ import com.oreilly
 
   new com.oreilly.Test;
 
-  // can't call from outsie the oreilly package
-  util.Try(new com.oreilly.Config)
+  /* can't call from outsie the oreilly package
+   * new com.oreilly.Config
+   */
 
+  val sealedClass: SealedClass = SealedClass(name = "Rashid", age = 26);
+  val subclassed: SubclassedSealed = SubclassedSealed();
 
+  println(subclassed.showHeight);
+  println(sealedClass.showName);
 
-  
 
 
 
@@ -47,3 +51,25 @@ class User(private var password: String) {
   def validate(p: String) = p == password;
 }
 
+
+// try subclassing a final class 
+final class FinalClass (var a: Int){
+  def showA: Unit = { println(s"($a)") }
+}
+
+// class B extends FinalClass(12);
+
+/* if final classes are too restrictive for your needs, consider sealed classes instead.
+ * Sealed classes restrict the subclasses of a class to being located in the same file as the parent.
+ */
+
+sealed class SealedClass (val name: String, val age: Int){
+  def showName: String = s"Hello I'm $name and I've lived on earth for ${age} years"
+}
+
+class SubclassedSealed(val height: String = "6'4") extends SealedClass("rashid", 26) {
+  def showHeight: String = s"I'm ${height} tall";
+}
+
+
+  
