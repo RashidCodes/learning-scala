@@ -350,11 +350,37 @@ new Page("<html><body><h1>Introduction</h1></body></html>").asPlainText;
 ```
 
 ### Traits come after parent class
-If you're extending a class **and** one or more traits, you will need to extend the class before you can add the traits using the `with` keyword. A parent class if specified must always come before any parent traits. It's important to understand how **linearization** shapes the hierarchy of any class that extends traits.
+If you're extending a class **and** one or more traits, you will need to extend the class before you can add the traits using the `with` keyword. A parent class if specified must always come before any parent traits. It's important to understand how **linearization** shapes the hierarchy of any class that extends traits. Read more about traits in the sbt-project.
 
+### Self types 
+A *self type* is a trait annotation that asserts that the trait must be mixed with a specific type, or its subtype, when it is added to a class. **A trait with a self type cannot be added to a class that does not extend the specific type**.
 
+**How are self types used?**
+A popular use of self types is to add functionality with traits to classes that require input parameters. A trait cannot easily extend a class that takes input parameters, because the trait itself cannot take input parameters.
 
+However, **it can declare itself to be a subtype of that parent class** with a self type and then add its functionality. Go [selfTypes.scala](https://github.com/RashidCodes/learning-scala/blob/main/packages/hello-world/src/main/scala/com/oreilly/selfTypes.scala) for an example.
 
+### Instantiation with Traits
+An alternate method for using traits is to **add them to a class** when the class is instantiated. A class defined with a dependency on, or even knowledge of, a given trait can take advantage of that trait's functionality.
 
+**Catch 22**
+Traits added to a class' instantiation extend the class and not the other way round
 
+```scala 
+package com.oreilly
+
+class User(val name: String) {
+    def suffix = "";
+    override def toString = s"$name$suffix"
+}
+
+trait Attorney { self: User => override def suffix = ", esq." };
+trait Wizard { self: User => override def suffix = ", Wizard" };
+trait Reverser { override def toString = super.toString.reverse };
+
+val l = new User("Luna L") with Wizard with Reverser
+```
+
+**Hierarchy**
+It goes Reverser -> Wizard -> new User("Luna L"); As opposed to `new User("Luna L") -> Reverser -> Wizard`.
 
