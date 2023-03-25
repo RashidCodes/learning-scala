@@ -8,7 +8,7 @@ import com.oreilly._
 
   val u = new UserUpgraded().sayHello;
   // var isValid = u.validate("4567");
-  // println(isValid)
+  // println(isValid);
   // u.update("4567");
   // isValid = u.validate("4567");
   // println(isValid);
@@ -48,12 +48,31 @@ import com.oreilly._
   println(h);
 
   /* Importing instance members */
+  // {
+  //   val latteReceipt = Receipt(123, 4.12, "fred", "Medium Latte");
+  //   import latteReceipt._
+  //   println(s"Sold a $title for $amount to $who")
+  // }
+
+  println(ImplicitClasses.test)
+
   {
-    val latteReceipt = Receipt(123, 4.12, "fred", "Medium Latte");
-    import latteReceipt._
-    println(s"Sold a $title for $amount to $who")
+    import com.oreilly.IntUtils._
+    println(3.fishes)
   }
 
+  val flexible = FlexibleBase()
+  val incremented = utils.increment(flexible);
+  println(incremented.i)
+
+  /* type parameters can morph into compatible types, even when bound in a
+   * new instance 
+   */
+  val l: List[FlexibleBase] = List[FlexibleSub]()
+
+  val g: Car = new Volvo();
+
+  val c: Item[Car] = new Item[Volvo](new Volvo)
 
 
 

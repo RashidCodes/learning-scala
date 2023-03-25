@@ -383,5 +383,7 @@ val l = new User("Luna L") with Wizard with Reverser
 
 **Hierarchy** 
 
-It goes Reverser -> Wizard -> new User("Luna L"); As opposed to `new User("Luna L") -> Reverser -> Wizard`.
+It goes `Reverser -> Wizard -> new User("Luna L");` As opposed to `new User("Luna L") -> Reverser -> Wizard`.
+
+
 
